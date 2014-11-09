@@ -1,0 +1,38 @@
+{
+    "name": "defiant/riot-api",
+    "type": "library",
+    "description": "A wrapper for the League of Legends API.",
+    "version": "0.1.0",
+    "keywords": [
+        "League",
+        "legends",
+        "wrap",
+        "api",
+        "facade",
+        "proxy"
+    ],
+    "homepage": "https://github.com/defiant/riot-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sinan Taga",
+            "email": "sinantaga@gmail.com",
+            "homepage": "http://sinantaga.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "4.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "mockery/mockery": "0.8.*",
+        "satooshi/php-coveralls": "0.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lolapi\\": "src/Lolapi"
+        }
+    },
+    "minimum-stability": "dev"
+}
