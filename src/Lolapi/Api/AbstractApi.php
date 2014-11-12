@@ -1,8 +1,4 @@
 <?php
-/**
- * Created by Sinan Taga.
- * Date: 07/11/14 - 17:25
- */
 namespace Lolapi\Api;
 
 use Lolapi\ClientInterface;
@@ -19,10 +15,11 @@ class AbstractApi {
         $this->key = $key;
     }
 
-    public function call($endpoint, $params, $static = false){
+    public function call($endpoint, $params = [], $static = false){
         $params['api_key'] = $this->key;
+
         $url = $this->client->setUrl($this->region, $this->version, $static) . $endpoint . '?' . http_build_query($params);
 
-        return $url;
+        return $this->client->request($url);
     }
 } 

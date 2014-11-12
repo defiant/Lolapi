@@ -17,9 +17,4 @@ class Champion extends AbstractApi{
     {
         // get champion by id
     }
-
-    public function test()
-    {
-        var_dump($this->call('champion', []));
-    }
 }

@@ -8,6 +8,8 @@ class Game extends AbstractApi{
 
     public function recentGames($id)
     {
+        $endpoint = 'game/by-summoner/' . $id . '/recent';
 
+        return $this->call($endpoint);
     }
 } 

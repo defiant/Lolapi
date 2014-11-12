@@ -22,15 +22,15 @@ class Client implements ClientInterface{
     {
         $url = $static ? $this->$domainStatic : $this->domain;
 
-        $this->url = str_replace(['{locale}', '{version}'], [$region, $version], $url);
+        $this->url = 'https://' . str_replace(['{locale}', '{version}'], [$region, $version], $url);
 
         return $this->url;
     }
 
-    public function request()
+    public function request($url)
     {
         $guzzle = new Guzzle();
-        $response = $guzzle->get($this->getUrl(), ['connect_timeout' => 600]);
+        $response = $guzzle->get($url, ['connect_timeout' => 600]);
 
         return  $response->json();
     }

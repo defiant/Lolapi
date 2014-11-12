@@ -10,6 +10,6 @@ interface ClientInterface
 
     public function getUrl();
     public function setUrl($region, $version, $static);
-    public function request();
+    public function request($url);
 
 } 
