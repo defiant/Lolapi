@@ -11,10 +11,15 @@ class Champion extends AbstractApi{
     public function all($filterFree = false)
     {
         // get all the champions
+        $params['filterFree'] = $filterFree;
+
+        return $this->call('champion', $params);
     }
 
-    public function championById($id)
+    public function byId($id)
     {
-        // get champion by id
+        // get a champion by id
+
+        return $this->call('champion/', $id);
     }
 }
