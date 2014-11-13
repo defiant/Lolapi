@@ -15,6 +15,14 @@ class Summoner extends AbstractApi{
      */
     protected $version = '1.4';
 
+    /**
+     * Returns an array containing all the users
+     * Can query both by id and name
+     * @param $summoners
+     *
+     * @return Array
+     * @throws \MaxException
+     */
     public function get($summoners)
     {
         $ids = $names = [];
@@ -52,8 +60,9 @@ class Summoner extends AbstractApi{
      * Get summoner objects mapped by standardized summoner name for a given list of summoner names. (REST)
      *
      * @param $ids
+     *
+     *  @return Array json
      * @throws \MaxException
-     * @return Array json
      */
     public function byId($ids)
     {
@@ -70,9 +79,10 @@ class Summoner extends AbstractApi{
     /**
      * Get summoner objects mapped by summoner ID for a given list of summoner IDs. (REST)
      *
-     * @param $names
+     * @param mixed $names
+     *
      * @throws \MaxException
-     * @return summoner info json
+     * @return array
      */
     public function byName($names)
     {
@@ -89,9 +99,9 @@ class Summoner extends AbstractApi{
     /**
      * Get rune pages mapped by summoner ID for a given list of summoner IDs. (REST
      *
-     * @param $ids
+     * @param mixed $ids
      *
-     * @return rune pages mapped by summoner ID
+     * @return Array
      */
     public function runes($ids)
     {
@@ -105,7 +115,7 @@ class Summoner extends AbstractApi{
     /**
      * Get mastery pages mapped by summoner ID for a given list of summoner IDs (REST)
      *
-     * @param $ids
+     * @param Array $ids
      */
     public function masteries($ids)
     {
@@ -117,12 +127,18 @@ class Summoner extends AbstractApi{
     }
 
     /**
-     * Get summoner names mapped by summoner ID for a given list of summoner IDs. (REST
+     * Get summoner names mapped by summoner ID for a given list of summoner IDs. (REST)
      *
-     * @param $id
+     * @param $ids
+     *
+     * @return Array
      */
-    public function name($id)
+    public function name($ids)
     {
-        return $this->call('summoner/' . $id . 'name');
+        if (is_array($ids)) {
+            $ids= implode(",", $ids);
+        }
+
+        return $this->call('summoner/' . $ids . '/name');
     }
 } 

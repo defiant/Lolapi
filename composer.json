@@ -1,5 +1,5 @@
 {
-    "name": "defiant/riot-api",
+    "name": "defiant/lolapi",
     "type": "library",
     "description": "A wrapper for the League of Legends API.",
     "version": "0.1.0",

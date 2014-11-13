@@ -8,18 +8,29 @@ class Champion extends AbstractApi{
     protected $region = 'tr';
 
 
+    /**
+     * Get all champions
+     * @param bool $filterFree
+     *
+     * @return Array
+     */
     public function all($filterFree = false)
     {
         // get all the champions
-        $params['filterFree'] = $filterFree;
+        // api url expects string
+        $params['freeToPlay'] = $filterFree ? 'true' : 'false';
 
         return $this->call('champion', $params);
     }
 
+    /**
+     * Get a champion by its given id
+     * @param int $id
+     *
+     * @return Array
+     */
     public function byId($id)
     {
-        // get a champion by id
-
-        return $this->call('champion/', $id);
+        return $this->call('champion/' . $id);
     }
 }

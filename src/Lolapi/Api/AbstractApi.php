@@ -7,14 +7,34 @@ class AbstractApi {
     protected $key;
     protected $client;
     protected $version;
-    protected $region;
+    protected $region = 'tr';
 
-    public function __construct(ClientInterface $client, $key, $region = null)
+    public function __construct(ClientInterface $client, $key)
     {
         $this->client = $client;
         $this->key = $key;
-        $this->region = $region;
     }
+
+    /**
+     * @return null
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param null $region
+     * @return $this
+     * @chainable
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+        return $this;
+    }
+
+
 
     public function call($endpoint, $params = [], $static = false){
         $params['api_key'] = $this->key;

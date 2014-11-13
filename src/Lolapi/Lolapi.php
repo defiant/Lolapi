@@ -28,7 +28,7 @@ class Lolapi {
             throw new ClassNotFoundException('The api class "'.$class.'" was not found.');
         }
 
-        $api = new $class($this->client, $this->apiKey, $this->getRegion());
+        $api = new $class($this->client, $this->apiKey);
 
         if (! $api instanceof AbstractApi) {
             // This class does not exist
@@ -44,7 +44,7 @@ class Lolapi {
     }
 
     /**
-     * @return mixed
+     * @return string $region
      */
     public function getRegion()
     {
@@ -52,11 +52,15 @@ class Lolapi {
     }
 
     /**
-     * @param mixed $region
+     * Set the region for api
+     * @param string $region
+     * @return this
+     * @chainable
      */
     public function setRegion($region)
     {
         $this->region = $region;
+        return $this;
     }
 
 
