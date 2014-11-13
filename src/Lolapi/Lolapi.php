@@ -1,9 +1,6 @@
 <?php namespace Lolapi;
-require '../../vendor/autoload.php';
 
 use Lolapi\Api\AbstractApi;
-use Lolapi\Api\Champion;
-
 //Exceptions
 use Lolapi\Exceptions\ClassNotFoundException;
 
@@ -45,17 +42,4 @@ class Lolapi {
 
         return $api;
     }
-
-    public function champ()
-    {
-        $champ = new Champion(new Client, $this->apiKey);
-        return $champ->test();
-    }
-
-
 }
-
-$api = new Lolapi('d9887817-03ce-40df-bfa0-535738e0561b');
-
-//$api->champ();
-$api->Champion()->test();

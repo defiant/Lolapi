@@ -9,8 +9,8 @@ use GuzzleHttp\Client as Guzzle;
 
 class Client implements ClientInterface{
 
-    protected $domain = '{locale}.api.pvp.net/api/lol/tr/v{version}/';
-    protected $domainStatic = 'global.api.pvp.net/api/lol/static-data/{locale}/v{version}/';
+    protected $domain = '{region}.api.pvp.net/api/lol/tr/v{version}/';
+    protected $domainStatic = 'global.api.pvp.net/api/lol/static-data/{region}/v{version}/';
     protected $url;
 
     public function getUrl()
@@ -20,9 +20,9 @@ class Client implements ClientInterface{
 
     public function setUrl($region, $version, $static = false)
     {
-        $url = $static ? $this->$domainStatic : $this->domain;
+        $url = $static ? $this->domainStatic : $this->domain;
 
-        $this->url = 'https://' . str_replace(['{locale}', '{version}'], [$region, $version], $url);
+        $this->url = 'https://' . str_replace(['{region}', '{version}'], [$region, $version], $url);
 
         return $this->url;
     }
