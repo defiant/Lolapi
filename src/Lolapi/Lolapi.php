@@ -7,6 +7,7 @@ use Lolapi\Exceptions\ClassNotFoundException;
 class Lolapi {
     protected $apiKey;
     protected $client;
+    protected $region = 'tr';
 
     public function __construct($apiKey, ClientInterface $client = null)
     {
@@ -22,13 +23,12 @@ class Lolapi {
     public function __call($name, $arguments)
     {
         $class= 'Lolapi\\Api\\'.$name;
-        if ( ! class_exists($class))
-        {
+        if ( ! class_exists($class)) {
             // This class does not exist
             throw new ClassNotFoundException('The api class "'.$class.'" was not found.');
         }
 
-        $api = new $class($this->client, $this->apiKey);
+        $api = new $class($this->client, $this->apiKey, $this->getRegion());
 
         if (! $api instanceof AbstractApi) {
             // This class does not exist
@@ -42,4 +42,22 @@ class Lolapi {
 
         return $api;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+
 }

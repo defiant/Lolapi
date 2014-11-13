@@ -9,9 +9,26 @@ use GuzzleHttp\Client as Guzzle;
 
 class Client implements ClientInterface{
 
-    protected $domain = '{region}.api.pvp.net/api/lol/tr/v{version}/';
+    protected $domain = '{region}.api.pvp.net/api/lol/{region}/v{version}/';
     protected $domainStatic = 'global.api.pvp.net/api/lol/static-data/{region}/v{version}/';
     protected $url;
+    protected $timeout = 600;
+
+    /**
+     * @return mixed
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param mixed $timeout
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+    }
 
     public function getUrl()
     {
@@ -30,7 +47,7 @@ class Client implements ClientInterface{
     public function request($url)
     {
         $guzzle = new Guzzle();
-        $response = $guzzle->get($url, ['connect_timeout' => 600]);
+        $response = $guzzle->get($url, ['connect_timeout' => $this->timeout]);
 
         return  $response->json();
     }

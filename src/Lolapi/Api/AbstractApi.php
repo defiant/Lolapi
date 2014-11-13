@@ -9,10 +9,11 @@ class AbstractApi {
     protected $version;
     protected $region;
 
-    public function __construct(ClientInterface $client, $key)
+    public function __construct(ClientInterface $client, $key, $region = null)
     {
         $this->client = $client;
         $this->key = $key;
+        $this->region = $region;
     }
 
     public function call($endpoint, $params = [], $static = false){
