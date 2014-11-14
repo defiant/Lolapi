@@ -6,75 +6,108 @@ class StaticData extends AbstractApi{
     protected $region = 'tr';
     protected $version = '1.2';
 
-    public function champion($id = null)
+    /**
+     * Query Parameters:
+     * locale
+     * version
+     * dataById (TRUE or FALSE - Only for all champs)
+     * champData (allytips, altimages, blurb, enemytips, image, info, lore, partype, passive, recommended, skins, spells, stats, tags)
+     * @param array $params
+     * @param int $id Id of the Champion
+     *
+     * @return Array
+     */
+    public function champion($params = [], $id = null)
     {
 
-        /*
-         * Query Parameters:
-         * locale
-         * version
-         * dataById (TRUE or FALSE - Only for all champs)
-         * champData (allytips, altimages, blurb, enemytips, image, info, lore, partype, passive, recommended, skins, spells, stats, tags)
-         */
+        // TODO check param validity
 
 
-        return $this->call('champion/' . $id);
+        if ($id && isset($params['dataById'])) {
+            unset($params['dataById']);
+        }
+
+        return $this->call('champion/' . $id, $params, true);
     }
 
-
-    public function item($id = null)
+    /**
+     * Query Parameters
+     * locale
+     * version
+     * itemListData (all, colloq, consumeOnFull, consumed, depth, from, gold, groups, hideFromAll, image, inStore, into, maps, requiredChampion, sanitizedDescription, specialRecipe, stacks, stats, tags, tree)
+     *
+     * @param array $params
+     * @param null $id
+     *
+     * @return mixed
+     */
+    public function item($params = [], $id = null)
     {
-        /*
-         * Query Parameters
-         * locale
-         * version
-         * itemListData (all, colloq, consumeOnFull, consumed, depth, from, gold, groups, hideFromAll, image, inStore, into, maps, requiredChampion, sanitizedDescription, specialRecipe, stacks, stats, tags, tree)
-         */
-        return $this->call('item/' . $id);
+        // TODO check param validity
+
+        return $this->call('item/' . $id, $params);
     }
 
-    public function mastery($id = null)
+    /**
+      * Query Parameters
+     * locale
+     * version
+     * masteryListData (all, image, prereq, ranks, sanitizedDescription, tree)
+     * @param array $params
+     * @param int $id
+     *
+     * @return array
+     */
+    public function mastery($params = [], $id = null)
     {
-        /*
-         * Query Parameters
-         * locale
-         * version
-         * masteryListData (all, image, prereq, ranks, sanitizedDescription, tree)
-         */
-
-        return $this->call('item/' . $id);
+        // TODO check param validity
+        return $this->call('item/' . $id, $params);
     }
 
+    /**
+     * @return array
+     */
     public function realm()
     {
         return $this->call('realm');
     }
 
-    public function rune($id = null)
+    /**
+     * Query Parameters
+     * locale
+     * version
+     * runeListData (all, basic, colloq, consumeOnFull, consumed, depth, from, gold, hideFromAll, image,
+     *               inStore, into, maps, requiredChampion, sanitizedDescription, specialRecipe, stacks, stats, tags)
+     * @param array $params
+     * @param int $id
+     *
+     * @return array
+     */
+    public function rune($params = [], $id = null)
     {
-        /*
-         * Query Parameters
-         * locale
-         * version
-         * runeListData (all, basic, colloq, consumeOnFull, consumed, depth, from, gold, hideFromAll, image,
-         *               inStore, into, maps, requiredChampion, sanitizedDescription, specialRecipe, stacks, stats, tags)
-         */
-        return $this->call('rune/' . $id);
+        return $this->call('rune/' . $id, $params);
     }
 
-    public function summonerSpell($id = null)
+    /**
+     * Query Parameters
+     * locale
+     * version
+     * dataById (TRUE or FALSE - Only for all champs)
+     * spellData (all, cooldown, cooldownBurn, cost, costBurn, costType, effect, effectBurn, image, key, leveltip,
+     *            maxrank, modes, range, rangeBurn, resource, sanitizedDescription, sanitizedTooltip, tooltip, vars)
+     * @param array $params
+     * @param int $id
+     *
+     * @return array
+     */
+    public function summonerSpell($params = [], $id = null)
     {
-        /*
-         * Query Parameters
-         * locale
-         * version
-         * dataById (TRUE or FALSE - Only for all champs)
-         * spellData (all, cooldown, cooldownBurn, cost, costBurn, costType, effect, effectBurn, image, key, leveltip,
-         *            maxrank, modes, range, rangeBurn, resource, sanitizedDescription, sanitizedTooltip, tooltip, vars)
-         */
-        return $this->call('summoner-spell/' . $id);
+        return $this->call('summoner-spell/' . $id, $params);
     }
 
+    /**
+     * @return array
+     */
     public function versions()
     {
         return $this->call('versions', [], true);
