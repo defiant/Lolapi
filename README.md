@@ -3,6 +3,7 @@
 This library allows you to calls to the RIOT API with a proper API Key.
 Simply replace API_KEY_HERE with your API key from Riot Games. If you don't have a key you can get one from [here](developer.riotgames.com).
 
+_This is still a work in progress._
 
 ##Installation
 Use composer!
