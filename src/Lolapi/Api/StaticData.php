@@ -11,7 +11,7 @@ class StaticData extends AbstractApi{
      * locale
      * version
      * dataById (TRUE or FALSE - Only for all champs)
-     * champData (allytips, altimages, blurb, enemytips, image, info, lore, partype, passive, recommended, skins, spells, stats, tags)
+     * champData
      * @param array $params
      * @param int $id Id of the Champion
      *
@@ -19,9 +19,12 @@ class StaticData extends AbstractApi{
      */
     public function champion($params = [], $id = null)
     {
+        $whitelist = ['allytips', 'altimages', 'blurb', 'enemytips', 'image', 'info', 'lore', 'partype', 'passive', 'recommended', 'skins', 'spells', 'stats', 'tags'];
 
-        // TODO check param validity
-
+        // check champData for valid tag values
+        if (isset($params['champData'])) {
+            $params['champData'] = $this->prepareTagString($params['champData'], $whitelist);
+        }
 
         if ($id && isset($params['dataById'])) {
             unset($params['dataById']);
@@ -34,7 +37,7 @@ class StaticData extends AbstractApi{
      * Query Parameters
      * locale
      * version
-     * itemListData (all, colloq, consumeOnFull, consumed, depth, from, gold, groups, hideFromAll, image, inStore, into, maps, requiredChampion, sanitizedDescription, specialRecipe, stacks, stats, tags, tree)
+     * itemListData
      *
      * @param array $params
      * @param null $id
@@ -43,7 +46,14 @@ class StaticData extends AbstractApi{
      */
     public function item($params = [], $id = null)
     {
-        // TODO check param validity
+        // itemListData whiteList
+        $whitelist = ['all', 'colloq', 'consumeOnFull', 'consumed', 'depth', 'from', 'gold', 'groups', 'hideFromAll',
+                      'image', 'inStore', 'into', 'maps', 'requiredChampion', 'sanitizedDescription', 'specialRecipe',
+                      'stacks', 'stats', 'tags', 'tree'];
+
+        if (isset($params['itemListData'])) {
+            $params['itemListData'] = $this->prepareTagString($params['itemListData'], $whitelist);
+        }
 
         return $this->call('item/' . $id, $params);
     }
@@ -52,7 +62,7 @@ class StaticData extends AbstractApi{
       * Query Parameters
      * locale
      * version
-     * masteryListData (all, image, prereq, ranks, sanitizedDescription, tree)
+     * masteryListData
      * @param array $params
      * @param int $id
      *
@@ -60,7 +70,11 @@ class StaticData extends AbstractApi{
      */
     public function mastery($params = [], $id = null)
     {
-        // TODO check param validity
+        $whitelist = ['all', 'image', 'prereq', 'ranks', 'sanitizedDescription', 'tree'];
+
+        if (isset($params['masteryListData'])) {
+            $params['masteryListData'] = $this->prepareTagString($params['masteryListData'], $whitelist);
+        }
         return $this->call('item/' . $id, $params);
     }
 
@@ -76,8 +90,7 @@ class StaticData extends AbstractApi{
      * Query Parameters
      * locale
      * version
-     * runeListData (all, basic, colloq, consumeOnFull, consumed, depth, from, gold, hideFromAll, image,
-     *               inStore, into, maps, requiredChampion, sanitizedDescription, specialRecipe, stacks, stats, tags)
+     * runeListData ()
      * @param array $params
      * @param int $id
      *
@@ -85,6 +98,13 @@ class StaticData extends AbstractApi{
      */
     public function rune($params = [], $id = null)
     {
+        $whitelist = ['all', 'basic', 'colloq', 'consumeOnFull', 'consumed', 'depth', 'from', 'gold', 'hideFromAll', 'image',
+                      'inStore', 'into', 'maps', 'requiredChampion', 'sanitizedDescription', 'specialRecipe', 'stacks', 'stats', 'tags'];
+
+        if (isset($params['runeListData'])) {
+            $params['runeListData'] = $this->prepareTagString($params['runeListData'], $whitelist);
+        }
+
         return $this->call('rune/' . $id, $params);
     }
 
@@ -93,8 +113,7 @@ class StaticData extends AbstractApi{
      * locale
      * version
      * dataById (TRUE or FALSE - Only for all champs)
-     * spellData (all, cooldown, cooldownBurn, cost, costBurn, costType, effect, effectBurn, image, key, leveltip,
-     *            maxrank, modes, range, rangeBurn, resource, sanitizedDescription, sanitizedTooltip, tooltip, vars)
+     * spellData
      * @param array $params
      * @param int $id
      *
@@ -102,6 +121,14 @@ class StaticData extends AbstractApi{
      */
     public function summonerSpell($params = [], $id = null)
     {
+        $whitelist = ['all', 'cooldown', 'cooldownBurn', 'cost', 'costBurn', 'costType', 'effect', 'effectBurn',
+                      'image', 'key', 'leveltip', 'maxrank', 'modes', 'range', 'rangeBurn', 'resource',
+                      'sanitizedDescription', 'sanitizedTooltip', 'tooltip', 'vars'];
+
+        if (isset($params['spellData'])) {
+            $params['spellData'] = $this->prepareTagString($params['spellData'], $whitelist);
+        }
+
         return $this->call('summoner-spell/' . $id, $params);
     }
 

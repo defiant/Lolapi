@@ -2,6 +2,7 @@
 namespace Lolapi\Api;
 
 use Lolapi\ClientInterface;
+use Lolapi\Exceptions\ParameterNotFoundException;
 
 class AbstractApi {
     protected $key;
@@ -37,7 +38,7 @@ class AbstractApi {
     public function call($endpoint, $params = [], $static = false){
         $params['api_key'] = $this->key;
 
-        $url = $this->client->setUrl($this->region, $this->version, $static) . $endpoint . '?' . http_build_query($params);
+        $url = $this->client->setUrl($this->region, $this->version, $static) . $endpoint . '?' . urldecode(http_build_query($params));
 
         return $this->client->request($url);
     }
@@ -50,5 +51,28 @@ class AbstractApi {
         }
 
         return $entry;
+    }
+
+    public function prepareTagString($string, $whitelist)
+    {
+        $champDataValues = explode(',', $string);
+
+        $retval = [];
+
+        foreach($champDataValues as $val){
+            $val = trim($val);
+            if (in_array($val, $whitelist)) {
+                $retval[] = $val;
+            }
+        }
+
+        return implode(',', $retval);
+    }
+
+    public function validParam($param, $whitelist)
+    {
+        if (!in_array(trim($param), $whitelist)) {
+            throw new ParameterNotFoundException($param . ' not found in accepted parameters.');
+        }
     }
 } 
