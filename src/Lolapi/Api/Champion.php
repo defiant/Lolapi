@@ -16,8 +16,7 @@ class Champion extends AbstractApi{
      */
     public function all($filterFree = false)
     {
-        // get all the champions
-        // api url expects string
+        // api url expects freeToPlay to be a string
         $params['freeToPlay'] = $filterFree ? 'true' : 'false';
 
         return $this->call('champion', $params);

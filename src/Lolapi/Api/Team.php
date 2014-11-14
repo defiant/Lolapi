@@ -18,30 +18,25 @@ class Team extends AbstractApi{
     protected $region = 'tr';
 
     /**
+     * Get teams mapped by summoner ID for a given list of summoner IDs. (REST)
      * @param $ids
      *
-     * @return mixed
+     * @return Array
      */
     public function bySummoner($ids)
     {
-        if (is_array($ids)) {
-            $ids= implode(",", $ids);
-        }
-
-        return $this->call('team/by-summoner/'.$ids);
+        return $this->call('team/by-summoner/' . $this->makeList($ids));
     }
 
     /**
      * Get teams mapped by team ID for a given list of team IDs. (REST)
      *
      * @param $ids
+     *
+     * @return Array
      */
     public function teams($ids)
     {
-        if (is_array($ids)) {
-            $ids= implode(",", $ids);
-        }
-
-        return $this->call('team/'.$ids);
+        return $this->call('team/' . $this->makeList($ids));
     }
 } 

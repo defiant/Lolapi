@@ -19,7 +19,7 @@ class Game extends AbstractApi{
 
     /**
      * Get recent games (max 10) by player id
-     * @param $id
+     * @param int $id
      *
      * @return Array
      */
