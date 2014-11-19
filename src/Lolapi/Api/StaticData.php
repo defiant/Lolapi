@@ -55,7 +55,7 @@ class StaticData extends AbstractApi{
             $params['itemListData'] = $this->prepareTagString($params['itemListData'], $whitelist);
         }
 
-        return $this->call('item/' . $id, $params);
+        return $this->call('item/' . $id, $params, true);
     }
 
     /**
@@ -75,7 +75,7 @@ class StaticData extends AbstractApi{
         if (isset($params['masteryListData'])) {
             $params['masteryListData'] = $this->prepareTagString($params['masteryListData'], $whitelist);
         }
-        return $this->call('item/' . $id, $params);
+        return $this->call('item/' . $id, $params, true);
     }
 
     /**
@@ -105,7 +105,7 @@ class StaticData extends AbstractApi{
             $params['runeListData'] = $this->prepareTagString($params['runeListData'], $whitelist);
         }
 
-        return $this->call('rune/' . $id, $params);
+        return $this->call('rune/' . $id, $params, true);
     }
 
     /**
@@ -129,7 +129,7 @@ class StaticData extends AbstractApi{
             $params['spellData'] = $this->prepareTagString($params['spellData'], $whitelist);
         }
 
-        return $this->call('summoner-spell/' . $id, $params);
+        return $this->call('summoner-spell/' . $id, $params, true);
     }
 
     /**

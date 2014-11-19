@@ -93,13 +93,16 @@ class Summoner extends AbstractApi{
             }
             $names = implode(",", $names);
         }
+
+        $names = htmlspecialchars($names);
+
         return $this->call('summoner/by-name/'.$names);
     }
 
     /**
      * Get rune pages mapped by summoner ID for a given list of summoner IDs. (REST
      *
-     * @param mixed $ids
+     * @param array int $ids
      *
      * @return Array
      */
