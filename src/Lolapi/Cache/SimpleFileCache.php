@@ -26,7 +26,9 @@ class SimpleFileCache implements SimpleCacheInterface{
     public function __construct($path = null)
     {
         if ($path) {
-            $this->path = $path;
+            $this->path =  $path;
+        }else{
+            $this->path = __DIR__ . '/' . $this->path;
         }
 
         if (!file_exists($this->path)) {
