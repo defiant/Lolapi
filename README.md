@@ -12,7 +12,7 @@ Use composer!
 
 Initialize the Api
 
-```$api = new Lolapi('API_KEY_HERE');```
+``$api = new Lolapi('API_KEY_HERE');``
 
 Set the Api you want to use.
 Valid Choices:
@@ -48,16 +48,16 @@ Get the Champion data from the api. This returns current champion info.
 
 Get all the champions:
 
-```$api->Champion()->all()```
+``$api->Champion()->all()``
 
 Get a champion by its id:
 
-```$api->Champion()->byId($id)```
+``$api->Champion()->byId($id)``
 
 ###Game
 Get recent games for a player by that players id. (Max 10 Games returned by Riot)
 
-```$api->Game()->recent()```
+``$api->Game()->recent()``
 
 ###History
 Retrieve match history by summoner ID. You can query multiple summoners.
@@ -65,7 +65,7 @@ Retrieve match history by summoner ID. You can query multiple summoners.
 Simple call: 
 You can send a single id to query a single Summoner.
 
-```$api->History()->get($id)```
+``$api->History()->get($id)``
 
 Parameters are sent as an array, Array key and values are listed below:
 
@@ -88,33 +88,34 @@ Get leagues mapped by summoner ID for a given list of summoner IDs.
 #####By Summoner or Team
 $ids: a single Summoner or Team id or an array of integers for multiple ids:
 
-```$this->League()->bySummoner($ids);```
+``$this->League()->bySummoner($ids);``
 
-```$this->League()->byTeam($ids);```
+``$this->League()->byTeam($ids);``
 
 ##### By Summoner or Team Entry
 Get leagues mapped by team ID for a given list of team IDs or Summoner IDs.
 
-```$this->League()->entryBySummoner($ids);```
+``$this->League()->entryBySummoner($ids);``
 
-```$this->League()->entryByTeam($ids);```
+``$this->League()->entryByTeam($ids);``
 
 
 ###Match
 Get match details for a given match.
 
-```$this->match()->detail($id);```
+``$this->match()->detail($id);``
 
 or you can supply a second parameter (bool) to ask for timeline. Not all matches have timeline info.
 
-```$this->match()->detail($id, true);```
+``$this->match()->detail($id, true);``
 
 ###StaticData
 All static data from riot are queried using this method. This method's api calls does not count toward your rate limit.
+
 #####Champion
 Get static data about a champion. The following will get all champions with default parameter.
 
-```$api->StaticData()->champion();```
+``$api->StaticData()->champion();``
 
 To get a specific champion with default parameters: 
 
@@ -142,7 +143,7 @@ $api->StaticData()->champion(['champData' => 'allytips, lore'])
 #####Item
 Get static data about an item. The following will get all items with default parameter.
 
-```$api->StaticData()->item();```
+``$api->StaticData()->item();``
 
 To get a specific item with default parameters: 
 
@@ -169,7 +170,7 @@ $api->StaticData()->item(['itemListData' => 'image, inStore'])
 #####Mastery
 Get static data about an item. The following will get all masteries with default parameter.
 
-```$api->StaticData()->mastery();```
+``$api->StaticData()->mastery();``
 
 To get a specific item with default parameters: 
 
@@ -196,12 +197,12 @@ $api->StaticData()->mastery(['maseryListData' => 'image, ranks'])
 #####Realm
 Retrieve realm data.
 
-```$api->StaticData()->realm();```
+``$api->StaticData()->realm();``
 
 #####Summoner Spells
 Get static data about a summoner spell. The following will get all spells with default parameter.
 
-```$api->StaticData()->summonerSpell();```
+``$api->StaticData()->summonerSpell();``
 
 To get a specific spell with default parameters: 
 
@@ -230,7 +231,7 @@ $api->StaticData()->summonerSpell(['spellData' => 'cooldown, tooltip'])
 #####Runes
 Get static data about a rune. The following will get all runes with default parameter.
 
-```$api->StaticData()->rune();```
+``$api->StaticData()->rune();``
 
 To get a specific rune with default parameters: 
 
@@ -257,32 +258,32 @@ $api->StaticData()->mastery(['maseryListData' => 'image, ranks'])
 #####Versions
 Retrieve version data.
 
-```$api->StaticData()->versions();```
+``$api->StaticData()->versions();``
 
 ###Stats
 Get Summoner stats. You can omit $season to get the latest season.
 
 Get ranked stats by summoner ID.
 
-```$api->Stats()->ranked($id, $season);```
+``$api->Stats()->ranked($id, $season);``
 
 Get player stats summaries by summoner ID.
 
-```$api->Stats()->summary($id, $seson);```
+``$api->Stats()->summary($id, $seson);``
 
 ###Status
 Get shard list: 
 
-```$api->Status()->shards();```
+``$api->Status()->shards();``
 
 Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region. 
 
-```$api->Status()->shards('na')```;
+``$api->Status()->shards('na')``;
 
 ###Summoner
 Get info about a summoner.
 
-```$api->Summoner()->get($id);```
+``$api->Summoner()->get($id);``
 
 Above method call will get info about a summoner. You can pass an array as parameter. This array can contain both names (strings) and ids (integers)
 
@@ -290,30 +291,30 @@ For example:
 
 This query will get both user named remataklan and user with id 343443:
 
-```$api->Summoner()->get(['remataklan', 343443]);```
+``$api->Summoner()->get(['remataklan', 343443]);``
 
 #####runes
 Get runes pages by summoners IDs. A single integer or an array of integers as parameters:
 
-```$api->Summoner()->runes($ids)```
+``$api->Summoner()->runes($ids)``
 
 #####masteries
 Get runes pages by masteries IDs. A single integer or an array of integers as parameters:
 
-```$api->Summoner()->masteries($ids)```
+``$api->Summoner()->masteries($ids)``
 
 ####name
 Get summoner names mapped by summoner ID for a given list of summoner IDs. A single integer or an array of integers as parameters:
 
-```$api->Summoner()->name($ids)```
+``$api->Summoner()->name($ids)``
 
 ###Team
 Get teams mapped by summoner ID for a given list of summoner IDs. 
 
-```$api->Team()->bySummoner($ids)```
+``$api->Team()->bySummoner($ids)``
 
 Get teams mapped by team ID for a given list of team IDs.
 
-```$api->Team()->teams($teamIds);```
+``$api->Team()->teams($teamIds);``
 
 A single integer or an array of integers as parameters for both methods.
