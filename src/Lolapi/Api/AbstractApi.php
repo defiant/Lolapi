@@ -1,23 +1,33 @@
 <?php
 namespace Lolapi\Api;
 
+use Lolapi\Cache\SimpleCacheInterface;
 use Lolapi\ClientInterface;
 use Lolapi\Exceptions\ParameterNotFoundException;
 
 class AbstractApi {
     protected $key;
     protected $client;
-    protected $version;
+    protected $cache;
+    protected $caching = true;
     protected $region = 'tr';
+    protected $version;
 
-    public function __construct(ClientInterface $client, $key)
+    public function __construct(ClientInterface $client, SimpleCacheInterface $cache, $key)
     {
         $this->client = $client;
+        $this->cache = $cache;
         $this->key = $key;
     }
 
+    public function setCaching($cache)
+    {
+        $this->caching = $cache;
+        return $this->caching;
+    }
+
     /**
-     * @return null
+     * @return string
      */
     public function getRegion()
     {
@@ -25,7 +35,7 @@ class AbstractApi {
     }
 
     /**
-     * @param null $region
+     * @param string $region
      * @return $this
      * @chainable
      */
@@ -36,9 +46,25 @@ class AbstractApi {
     }
 
     public function call($endpoint, $params = [], $static = false){
+        $minutes = $static ? 300 : 10;
+
         $params['api_key'] = $this->key;
 
         $url = $this->client->setUrl($this->region, $this->version, $static) . $endpoint . '?' . urldecode(http_build_query($params));
+
+        if ($this->caching) {
+            if (!$this->cache instanceof SimpleCacheInterface) {
+                throw new \Exception($this->cache . 'does not implement SimpleCacheInterface');
+            }
+            // try to get cache
+            if ($this->cache->has($url)) {
+                return $this->cache->get($url);
+            }else{
+                $data = $this->client->request($url);
+                $this->cache->put($url, $data, $minutes);
+                return $data;
+            }
+        }
 
         return $this->client->request($url);
     }
