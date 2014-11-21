@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Lolapi by defiant</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Lolapi</h1>
+          <h2>League of Legends Api Wrapper</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/defiant/Lolapi/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/defiant/Lolapi/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/defiant/Lolapi" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="lolapi" class="anchor" href="#lolapi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lolapi</h1>
+
+<h2>
+<a id="league-of-legends-api-wrapper" class="anchor" href="#league-of-legends-api-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>League of Legends Api Wrapper</h2>
+
+<p>This library allows you to calls to the RIOT API with a proper API Key.
+Simply replace API_KEY_HERE with your API key from Riot Games. If you don't have a key you can get one from <a href="developer.riotgames.com">here</a>.</p>
+
+<p><em>This is still a work in progress.</em></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Use composer!</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Initialize the Api</p>
+
+<p><code>$api = new Lolapi('API_KEY_HERE');</code></p>
+
+<p>Set the Api you want to use.
+Valid Choices:</p>
+
+<ul>
+<li>Champion</li>
+<li>Game</li>
+<li>History</li>
+<li>League</li>
+<li>Match</li>
+<li>StaticData</li>
+<li>Stats</li>
+<li>Status</li>
+<li>Summoner</li>
+<li>Team</li>
+</ul>
+
+<p>For example to get the Summoner details
+you can do something like this.</p>
+
+<pre><code>    $api-&gt;Summoner()-&gt;byName('remataklan'));
+// or
+    $summoner = new Summoner;
+    $remataklan = $summoner-&gt;byName('remataklan')
+
+</code></pre>
+
+<p>You should get an array containing the summoner details.</p>
+
+<h2>
+<a id="apis" class="anchor" href="#apis" aria-hidden="true"><span class="octicon octicon-link"></span></a>APIs</h2>
+
+<h3>
+<a id="champion" class="anchor" href="#champion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Champion</h3>
+
+<p>Get the Champion data from the api. This returns current champion info. </p>
+
+<p>Get all the champions:</p>
+
+<p><code>$api-&gt;Champion()-&gt;all()</code></p>
+
+<p>Get a champion by its id:</p>
+
+<p><code>$api-&gt;Champion()-&gt;byId($id)</code></p>
+
+<h3>
+<a id="game" class="anchor" href="#game" aria-hidden="true"><span class="octicon octicon-link"></span></a>Game</h3>
+
+<p>Get recent games for a player by that players id. (Max 10 Games returned by Riot)</p>
+
+<p><code>$api-&gt;Game()-&gt;recent()</code></p>
+
+<h3>
+<a id="history" class="anchor" href="#history" aria-hidden="true"><span class="octicon octicon-link"></span></a>History</h3>
+
+<p>Retrieve match history by summoner ID. You can query multiple summoners.</p>
+
+<p>Simple call: 
+You can send a single id to query a single Summoner.</p>
+
+<p><code>$api-&gt;History()-&gt;get($id)</code></p>
+
+<p>Parameters are sent as an array, Array key and values are listed below:</p>
+
+<ul>
+<li>championIds (ids of champions to filter)</li>
+<li>rankedQueues (valid options: RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)</li>
+<li>beginIndex: The begin index to use for fetching games. </li>
+<li>endIndex: The begin index to use for fetching games.</li>
+</ul>
+
+<pre><code>$params = ['championIds' =&gt; 1, 'rankedQueues' =&gt; 'RANKED_SOLO_5x5'];
+$api-&gt;History()-&gt;get($id, $params);
+</code></pre>
+
+<h3>
+<a id="league" class="anchor" href="#league" aria-hidden="true"><span class="octicon octicon-link"></span></a>League</h3>
+
+<p>Get various league information.</p>
+
+<p>Get leagues mapped by summoner ID for a given list of summoner IDs.</p>
+
+<h5>
+<a id="by-summoner-or-team" class="anchor" href="#by-summoner-or-team" aria-hidden="true"><span class="octicon octicon-link"></span></a>By Summoner or Team</h5>
+
+<p>$ids: a single Summoner or Team id or an array of integers for multiple ids:</p>
+
+<p><code>$this-&gt;League()-&gt;bySummoner($ids);</code></p>
+
+<p><code>$this-&gt;League()-&gt;byTeam($ids);</code></p>
+
+<h5>
+<a id="by-summoner-or-team-entry" class="anchor" href="#by-summoner-or-team-entry" aria-hidden="true"><span class="octicon octicon-link"></span></a>By Summoner or Team Entry</h5>
+
+<p>Get leagues mapped by team ID for a given list of team IDs or Summoner IDs.</p>
+
+<p><code>$this-&gt;League()-&gt;entryBySummoner($ids);</code></p>
+
+<p><code>$this-&gt;League()-&gt;entryByTeam($ids);</code></p>
+
+<h3>
+<a id="match" class="anchor" href="#match" aria-hidden="true"><span class="octicon octicon-link"></span></a>Match</h3>
+
+<p>Get match details for a given match.</p>
+
+<p><code>$this-&gt;match()-&gt;detail($id);</code></p>
+
+<p>or you can supply a second parameter (bool) to ask for timeline. Not all matches have timeline info.</p>
+
+<p><code>$this-&gt;match()-&gt;detail($id, true);</code></p>
+
+<h3>
+<a id="staticdata" class="anchor" href="#staticdata" aria-hidden="true"><span class="octicon octicon-link"></span></a>StaticData</h3>
+
+<p>All static data from riot are queried using this method. This method's api calls does not count toward your rate limit.</p>
+
+<h5>
+<a id="champion-1" class="anchor" href="#champion-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Champion</h5>
+
+<p>Get static data about a champion. The following will get all champions with default parameter.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;champion();</code></p>
+
+<p>To get a specific champion with default parameters: </p>
+
+<pre><code>// Note that you must supply an empty array for default 
+// parameters when requesting a specific champion
+
+$api-&gt;StaticData()-&gt;champion([], $id);
+</code></pre>
+
+<p>Valid $params, You can pass them as array key/value pairs</p>
+
+<ul>
+<li>locale</li>
+<li>version</li>
+<li>dataById (TRUE or FALSE - Only for all champs)</li>
+<li>champData ['allytips', 'altimages', 'blurb', 'enemytips', 'image', 'info', 'lore', 'partype', 'passive', 'recommended', 'skins', 'spells', 'stats', 'tags']</li>
+</ul>
+
+<pre><code>// Note that if you want more than one champData param
+// you can pass it as a comma separated string
+
+$api-&gt;StaticData()-&gt;champion(['champData' =&gt; 'allytips, lore'])
+</code></pre>
+
+<h5>
+<a id="item" class="anchor" href="#item" aria-hidden="true"><span class="octicon octicon-link"></span></a>Item</h5>
+
+<p>Get static data about an item. The following will get all items with default parameter.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;item();</code></p>
+
+<p>To get a specific item with default parameters: </p>
+
+<pre><code>// Note that you must supply an empty array for default 
+// parameters when requesting a specific item
+
+$api-&gt;StaticData()-&gt;item([], $id);
+</code></pre>
+
+<p>Valid $params, You can pass them as array key/value pairs</p>
+
+<ul>
+<li>locale</li>
+<li>version</li>
+<li>itemListData ['all', 'colloq', 'consumeOnFull', 'consumed', 'depth', 'from', 'gold', 'groups', 'hideFromAll', 'image', 'inStore', 'into', 'maps', 'requiredChampion', 'sanitizedDescription', 'specialRecipe', 'stacks', 'stats', 'tags', 'tree']</li>
+</ul>
+
+<pre><code>// Note that if you want more than one itemlistData param
+// you can pass it as a comma separated string
+
+$api-&gt;StaticData()-&gt;item(['itemListData' =&gt; 'image, inStore'])
+</code></pre>
+
+<h5>
+<a id="mastery" class="anchor" href="#mastery" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mastery</h5>
+
+<p>Get static data about an item. The following will get all masteries with default parameter.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;mastery();</code></p>
+
+<p>To get a specific item with default parameters: </p>
+
+<pre><code>// Note that you must supply an empty array for default 
+// parameters when requesting a specific mastery
+
+$api-&gt;StaticData()-&gt;mastery([], $id);
+</code></pre>
+
+<p>Valid $params, You can pass them as array key/value pairs</p>
+
+<ul>
+<li>locale</li>
+<li>version</li>
+<li>masteryListData ['all', 'image', 'prereq', 'ranks', 'sanitizedDescription', 'tree']</li>
+</ul>
+
+<pre><code>// Note that if you want more than one masterylistData param
+// you can pass it as a comma separated string
+
+$api-&gt;StaticData()-&gt;mastery(['maseryListData' =&gt; 'image, ranks'])
+</code></pre>
+
+<h5>
+<a id="realm" class="anchor" href="#realm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Realm</h5>
+
+<p>Retrieve realm data.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;realm();</code></p>
+
+<h5>
+<a id="summoner-spells" class="anchor" href="#summoner-spells" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summoner Spells</h5>
+
+<p>Get static data about a summoner spell. The following will get all spells with default parameter.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;summonerSpell();</code></p>
+
+<p>To get a specific spell with default parameters: </p>
+
+<pre><code>// Note that you must supply an empty array for default 
+// parameters when requesting a specific spell
+
+$api-&gt;StaticData()-&gt;summonerSpell([], $id);
+</code></pre>
+
+<p>Valid $params, You can pass them as array key/value pairs</p>
+
+<ul>
+<li>locale</li>
+<li>version</li>
+<li>dataById (TRUE or FALSE - Only for all champs)</li>
+<li>spellData ['all', 'cooldown', 'cooldownBurn', 'cost', 'costBurn', 'costType', 'effect', 'effectBurn', 'image', 'key', 'leveltip', 'maxrank', 'modes', 'range', 'rangeBurn', 'resource', 'sanitizedDescription', 'sanitizedTooltip', 'tooltip', 'vars']</li>
+</ul>
+
+<pre><code>// Note that if you want more than one spellData param
+// you can pass it as a comma separated string
+
+$api-&gt;StaticData()-&gt;summonerSpell(['spellData' =&gt; 'cooldown, tooltip'])
+</code></pre>
+
+<h5>
+<a id="runes" class="anchor" href="#runes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Runes</h5>
+
+<p>Get static data about a rune. The following will get all runes with default parameter.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;rune();</code></p>
+
+<p>To get a specific rune with default parameters: </p>
+
+<pre><code>// Note that you must supply an empty array for default 
+// parameters when requesting a specific mastery
+
+$api-&gt;StaticData()-&gt;rune([], $id);
+</code></pre>
+
+<p>Valid $params, You can pass them as array key/value pairs</p>
+
+<ul>
+<li>locale</li>
+<li>version</li>
+<li>runeListData ['all', 'basic', 'colloq', 'consumeOnFull', 'consumed', 'depth', 'from', 'gold', 'hideFromAll', 'image', 'inStore', 'into', 'maps', 'requiredChampion', 'sanitizedDescription', 'specialRecipe', 'stacks', 'stats', 'tags']</li>
+</ul>
+
+<pre><code>// Note that if you want more than one masterylistData param
+// you can pass it as a comma separated string
+
+$api-&gt;StaticData()-&gt;mastery(['maseryListData' =&gt; 'image, ranks'])
+</code></pre>
+
+<h5>
+<a id="versions" class="anchor" href="#versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Versions</h5>
+
+<p>Retrieve version data.</p>
+
+<p><code>$api-&gt;StaticData()-&gt;versions();</code></p>
+
+<h3>
+<a id="stats" class="anchor" href="#stats" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stats</h3>
+
+<p>Get Summoner stats. You can omit $season to get the latest season.</p>
+
+<p>Get ranked stats by summoner ID.</p>
+
+<p><code>$api-&gt;Stats()-&gt;ranked($id, $season);</code></p>
+
+<p>Get player stats summaries by summoner ID.</p>
+
+<p><code>$api-&gt;Stats()-&gt;summary($id, $seson);</code></p>
+
+<h3>
+<a id="status" class="anchor" href="#status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Status</h3>
+
+<p>Get shard list: </p>
+
+<p><code>$api-&gt;Status()-&gt;shards();</code></p>
+
+<p>Get shard status. Returns the data available on the status.leagueoflegends.com website for the given region. </p>
+
+<p><code>$api-&gt;Status()-&gt;shards('na')</code>;</p>
+
+<h3>
+<a id="summoner" class="anchor" href="#summoner" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summoner</h3>
+
+<p>Get info about a summoner.</p>
+
+<p><code>$api-&gt;Summoner()-&gt;get($id);</code></p>
+
+<p>Above method call will get info about a summoner. You can pass an array as parameter. This array can contain both names (strings) and ids (integers)</p>
+
+<p>For example:</p>
+
+<p>This query will get both user named remataklan and user with id 343443:</p>
+
+<p><code>$api-&gt;Summoner()-&gt;get(['remataklan', 343443]);</code></p>
+
+<h5>
+<a id="runes-1" class="anchor" href="#runes-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>runes</h5>
+
+<p>Get runes pages by summoners IDs. A single integer or an array of integers as parameters:</p>
+
+<p><code>$api-&gt;Summoner()-&gt;runes($ids)</code></p>
+
+<h5>
+<a id="masteries" class="anchor" href="#masteries" aria-hidden="true"><span class="octicon octicon-link"></span></a>masteries</h5>
+
+<p>Get runes pages by masteries IDs. A single integer or an array of integers as parameters:</p>
+
+<p><code>$api-&gt;Summoner()-&gt;masteries($ids)</code></p>
+
+<h4>
+<a id="name" class="anchor" href="#name" aria-hidden="true"><span class="octicon octicon-link"></span></a>name</h4>
+
+<p>Get summoner names mapped by summoner ID for a given list of summoner IDs. A single integer or an array of integers as parameters:</p>
+
+<p><code>$api-&gt;Summoner()-&gt;name($ids)</code></p>
+
+<h3>
+<a id="team" class="anchor" href="#team" aria-hidden="true"><span class="octicon octicon-link"></span></a>Team</h3>
+
+<p>Get teams mapped by summoner ID for a given list of summoner IDs. </p>
+
+<p><code>$api-&gt;Team()-&gt;bySummoner($ids)</code></p>
+
+<p>Get teams mapped by team ID for a given list of team IDs.</p>
+
+<p><code>$api-&gt;Team()-&gt;teams($teamIds);</code></p>
+
+<p>A single integer or an array of integers as parameters for both methods.</p>
+        </section>
+
+        <footer>
+          Lolapi is maintained by <a href="https://github.com/defiant">defiant</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
