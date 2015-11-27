@@ -2,7 +2,7 @@
     "name": "defiant/lolapi",
     "type": "library",
     "description": "PHP wrapper for the League of Legends API.",
-    "version": "0.1.0",
+    "version": "0.2",
     "keywords": [
         "League",
         "legends",
