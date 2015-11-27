@@ -3,10 +3,7 @@
 class Champion extends AbstractApi{
 
     protected $free = false;
-
     protected $version = '1.2';
-    protected $region = 'tr';
-
 
     /**
      * Get all champions

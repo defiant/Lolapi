@@ -3,8 +3,8 @@ namespace Lolapi\Api;
 
 class StaticData extends AbstractApi{
 
-    protected $region = 'tr';
     protected $version = '1.2';
+    protected $domain = 'global.api.pvp.net/api/lol/static-data/{region}/v{version}/';
 
     /**
      * Query Parameters:
@@ -19,7 +19,7 @@ class StaticData extends AbstractApi{
      */
     public function champion($params = [], $id = null)
     {
-        $whitelist = ['allytips', 'altimages', 'blurb', 'enemytips', 'image', 'info', 'lore', 'partype', 'passive', 'recommended', 'skins', 'spells', 'stats', 'tags'];
+        $whitelist = ['all', 'allytips', 'altimages', 'blurb', 'enemytips', 'image', 'info', 'lore', 'partype', 'passive', 'recommended', 'skins', 'spells', 'stats', 'tags'];
 
         // check champData for valid tag values
         if (isset($params['champData'])) {

@@ -1,5 +1,4 @@
-<?php
-namespace Lolapi;
+<?php namespace Lolapi;
 
 use GuzzleHttp\Client as Guzzle;
 
@@ -10,17 +9,6 @@ use GuzzleHttp\Client as Guzzle;
  */
 class Client implements ClientInterface{
 
-    /**
-     * @var string
-     */
-    protected $domain = '{region}.api.pvp.net/api/lol/{region}/v{version}/';
-    /**
-     * @var string
-     */
-    protected $domainStatic = 'global.api.pvp.net/api/lol/static-data/{region}/v{version}/';
-    /**
-     * @var string
-     */
     protected $url;
     /**
      * @var int

@@ -32,23 +32,19 @@ class Lolapi {
     {
         $class= 'Lolapi\\Api\\'.$name;
 
-        if ( ! class_exists($class)) {
+        if (! class_exists($class)) {
             // This class does not exist
             throw new ClassNotFoundException('The api class "'.$class.'" was not found.');
         }
 
-        $api = new $class($this->client, $this->cache, $this->apiKey);
+        $region = isset($arguments[0]) ? $arguments[0] : $this->region;
+
+        $api = new $class($this->client, $this->cache, $this->apiKey, $region);
 
         if (! $api instanceof AbstractApi) {
             // This class does not exist
             throw new ClassNotFoundException('The api class "'.$class.'" is not an instance of AbstractApi Class.');
         }
-
-        // $api->setCaching(true);
-        /*$api->setKey($this->key)
-            ->setRegion($this->region)
-            ->setTimeout($this->timeout)
-            ->setCacheOnly($this->cacheOnly);*/
 
         return $api;
     }

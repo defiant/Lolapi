@@ -10,14 +10,17 @@ class AbstractApi {
     protected $client;
     protected $cache;
     protected $caching = true;
-    protected $region = 'tr';
+    protected $region;
     protected $version;
+    protected $domain = '{region}.api.pvp.net/api/lol/{region}/v{version}/';
 
-    public function __construct(ClientInterface $client, SimpleCacheInterface $cache, $key)
+
+    public function __construct(ClientInterface $client, SimpleCacheInterface $cache, $key, $region)
     {
         $this->client = $client;
         $this->cache = $cache;
         $this->key = $key;
+        $this->region = $region;
     }
 
     public function setCaching($cache)
@@ -45,12 +48,12 @@ class AbstractApi {
         return $this;
     }
 
-    public function call($endpoint, $params = [], $static = false){
-        $minutes = $static ? 300 : 10;
+    public function call($endpoint, $params = []){
+        $minutes = 10;
 
         $params['api_key'] = $this->key;
 
-        $url = $this->client->setUrl($this->region, $this->version, $static) . $endpoint . '?' . urldecode(http_build_query($params));
+        $url = $this->setUrl($this->domain, $endpoint, $this->region, $this->version, $params);
 
         if ($this->caching) {
             if (!$this->cache instanceof SimpleCacheInterface) {
@@ -100,5 +103,11 @@ class AbstractApi {
         if (!in_array(trim($param), $whitelist)) {
             throw new ParameterNotFoundException($param . ' not found in accepted parameters.');
         }
+    }
+
+    public function setUrl($domain, $endpoint, $region, $version, $params = []){
+        $url = 'https://' . str_replace(['{region}', '{version}'], [$region, $version], $domain);
+        $url .= $endpoint . '?' . urldecode(http_build_query($params));
+        return $url;
     }
 } 
