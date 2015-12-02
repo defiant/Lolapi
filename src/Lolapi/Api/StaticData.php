@@ -75,7 +75,7 @@ class StaticData extends AbstractApi{
         if (isset($params['masteryListData'])) {
             $params['masteryListData'] = $this->prepareTagString($params['masteryListData'], $whitelist);
         }
-        return $this->call('item/' . $id, $params, true);
+        return $this->call('mastery/' . $id, $params, true);
     }
 
     /**
