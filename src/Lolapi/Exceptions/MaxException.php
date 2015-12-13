@@ -1,5 +1,4 @@
-<?php namespace Lolapi\Exceptions;
-
+<?php
 class MaxException extends \Exception{
 
 } 

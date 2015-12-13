@@ -1,6 +1,5 @@
 <?php
 namespace Lolapi\Api;
-use Lolapi\Exceptions\MaxException;
 
 /**
  * Class Summoner
@@ -63,13 +62,13 @@ class Summoner extends AbstractApi{
      * @param $ids
      *
      *  @return Array json
-     * @throws MaxException
+     * @throws \MaxException
      */
     public function byId($ids)
     {
         if (is_array($ids)) {
             if (count($ids) > self::MAXIMUM) {
-                throw new MaxException('You can query only ' . self::MAXIMUM . ' ids per request');
+                throw new \MaxException('You can query only ' . self::MAXIMUM . ' ids per request');
             }
             $ids = implode(",", $ids);
         }
@@ -82,7 +81,7 @@ class Summoner extends AbstractApi{
      *
      * @param mixed $names
      *
-     * @throws MaxException
+     * @throws \MaxException
      * @return array
      */
     public function byName($names)
@@ -90,7 +89,7 @@ class Summoner extends AbstractApi{
 
         if (is_array($names)) {
             if (count($names) > self::MAXIMUM) {
-                throw new MaxException('You can query only ' . self::MAXIMUM . ' ids per request');
+                throw new \MaxException('You can query only ' . self::MAXIMUM . ' ids per request');
             }
             $names = implode(",", $names);
         }
