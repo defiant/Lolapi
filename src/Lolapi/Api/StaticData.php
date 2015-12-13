@@ -142,6 +142,6 @@ class StaticData extends AbstractApi{
 
     public function maps()
     {
-        return $this->call('maps');
+        return $this->call('map');
     }
 } 
