@@ -62,14 +62,15 @@ class Client implements ClientInterface{
 
     /**
      * @param $url
+     * @param $asArray
      *
      * @return Array
      */
-    public function request($url)
+    public function request($url, $asArray = true)
     {
         $guzzle = new Guzzle();
         $response = $guzzle->get($url, ['connect_timeout' => $this->timeout]);
 
-        return  json_decode($response->getBody());
+        return  json_decode($response->getBody(), $asArray);
     }
 }
