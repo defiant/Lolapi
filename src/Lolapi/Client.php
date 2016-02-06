@@ -70,6 +70,6 @@ class Client implements ClientInterface{
         $guzzle = new Guzzle();
         $response = $guzzle->get($url, ['connect_timeout' => $this->timeout]);
 
-        return  $response->json();
+        return  json_decode($response->getBody());
     }
 }

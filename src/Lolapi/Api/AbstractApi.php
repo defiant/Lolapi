@@ -9,7 +9,7 @@ class AbstractApi {
     protected $key;
     protected $client;
     protected $cache;
-    protected $caching = true;
+    protected $caching = false;
     protected $region;
     protected $version;
     protected $domain = '{region}.api.pvp.net/api/lol/{region}/v{version}/';
